@@ -1,5 +1,8 @@
+import app.LibraryApp;
+
 public class Main {
     static void main(String[] args) {
-        System.out.println("Hello, World!");
+        LibraryApp app = new LibraryApp();
+        app.start();
     }
 }
