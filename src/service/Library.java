@@ -67,6 +67,16 @@ public class Library {
         return new ArrayList<>(members.values());
     }
 
+    public List<Member> getAllMembersByType(String type){
+        List<Member> members = new ArrayList<>();
+        for(Member member : this.members.values()){
+            if(member.getMemberType().equals(type)){
+                members.add(member);
+            }
+        }
+        return members;
+    }
+
     public Member searchMemberById(int id) {
         return members.get(id);
     }
@@ -89,7 +99,7 @@ public class Library {
         return true;
     }
 
-    public boolean issueBook(String bookId, int memberId, String date){
+    public boolean issueBook(int bookId, int memberId, String date){
         Book book = books.get(bookId);
         Member member = members.get(memberId);
 
@@ -114,7 +124,7 @@ public class Library {
         return true;
     }
 
-    public boolean returnBook(String bookId, int memberId, String date){
+    public boolean returnBook(int bookId, int memberId, String date){
         Book book = books.get(bookId);
         Member member = members.get(memberId);
 

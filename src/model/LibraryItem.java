@@ -37,7 +37,7 @@ public abstract class LibraryItem {
     }
 
     public void issueItem(){
-        if (!this.issued) {
+        if (!isIssued()) {
             this.issued = true;
         } else {
             System.out.printf("%s is already issued.",  this.getTitle());

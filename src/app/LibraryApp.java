@@ -25,17 +25,18 @@ public class LibraryApp {
                 case 6 -> handleRegisterStudent();
                 case 7 -> handleRegisterFaculty();
                 case 8 -> handleViewAllMembers();
-                case 9 -> handleSearchMemberById();
-                case 10 -> handleSearchMemberByName();
-                case 11 -> handleDeleteMemberById();
-                case 12 -> handleIssueBook();
-                case 13 -> handleReturnBook();
-                case 14 -> handleViewTransactions();
-                case 15 -> handleViewTransactionByMemberId();
-                case 16 -> handleViewTransactionByBookId();
-                case 17 -> handleViewAvailableBooks();
-                case 18 -> handleViewIssuedBooks();
-                case 19 -> handleExit();
+                case 9 -> handleFilterMembersByType();
+                case 10 -> handleSearchMemberById();
+                case 11 -> handleSearchMemberByName();
+                case 12 -> handleDeleteMemberById();
+                case 13 -> handleIssueBook();
+                case 14 -> handleReturnBook();
+                case 15 -> handleViewTransactions();
+                case 16 -> handleViewTransactionByMemberId();
+                case 17 -> handleViewTransactionByBookId();
+                case 18 -> handleViewAvailableBooks();
+                case 19 -> handleViewIssuedBooks();
+                case 20 -> handleExit();
                 default -> System.out.println("Invalid choice. Please try again.");
             }
         }
@@ -53,17 +54,18 @@ public class LibraryApp {
                 6.  Register Student Member
                 7.  Register Staff Member
                 8.  View All Members
-                9.  Search Member by Id
-                10. Search Member by Name
-                11. Delete Member by Id
-                12. Issue Book
-                13. Return Book
-                14. View Transactions
-                15. View Transaction By Member Id
-                16. View Transaction By Book Id
-                17. View Available Books
-                18. View Issued Books
-                19. Exit
+                9.  Filter Members by Type
+                10.  Search Member by Id
+                11. Search Member by Name
+                12. Delete Member by Id
+                13. Issue Book
+                14. Return Book
+                15. View Transactions
+                16. View Transaction By Member Id
+                17. View Transaction By Book Id
+                18. View Available Books
+                19. View Issued Books
+                20. Exit
                 """;
         System.out.println(menu);
     }
@@ -173,6 +175,36 @@ public class LibraryApp {
         library.getAllMembers().forEach(System.out::println);
     }
 
+    private void handleFilterMembersByType(){
+        System.out.println("---------------------------------------\nSelect Members Type: \n-------------------------------");
+        System.out.println("1. Student");
+        System.out.println("2. Staff");
+
+        int choice = InputHelper.readInt("Enter your choice: ");
+        switch(choice){
+            case 1 -> {
+                System.out.println("---------------------------------------\nStudent Members: \n-------------------------------");
+                System.out.printf("%s %-30s   %-30s   %-20s   %-10s\n", center("ID", 10), "Name", "Email", "Type", "Total Borrowed");
+                List<?> studentMembers = library.getAllMembersByType("Student");
+                if(studentMembers.isEmpty()){
+                    System.out.println("No students found.");
+                }else{
+                    studentMembers.forEach(System.out::println);
+                }
+            }
+            case 2 ->{
+                System.out.println("---------------------------------------\nStaff Members: \n-------------------------------");
+                System.out.printf("%s %-30s   %-30s   %-20s   %-10s\n", center("ID", 10), "Name", "Email", "Type", "Total Borrowed");
+                List<?> staffMembers = library.getAllMembersByType("Staff");
+                if(staffMembers.isEmpty()){
+                    System.out.println("No students found.");
+                }else{
+                    staffMembers.forEach(System.out::println);
+                }
+            }
+        }
+    }
+
     private void handleSearchMemberById(){
         int id = InputHelper.readInt("Enter member ID: ");
         Member member = library.searchMemberById(id);
@@ -203,7 +235,7 @@ public class LibraryApp {
     }
 
     private void handleIssueBook(){
-        String bookId = InputHelper.readString("Enter book ID: ");
+        int bookId = InputHelper.readInt("Enter book ID: ");
         int memberId = InputHelper.readInt("Enter member ID: ");
         String date = InputHelper.readDate("Enter issue date: ");
 
@@ -216,7 +248,7 @@ public class LibraryApp {
     }
 
     private void handleReturnBook(){
-        String bookId = InputHelper.readString("Enter book ID: ");
+        int bookId = InputHelper.readInt("Enter book ID: ");
         int memberId = InputHelper.readInt("Enter member ID: ");
         String date = InputHelper.readDate("Enter return date: ");
 
